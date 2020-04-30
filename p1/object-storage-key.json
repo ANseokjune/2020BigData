@@ -1,0 +1,13 @@
+{
+  "apikey": "QLBlIPaJxhbAuNcrt4mtQ4OzOgVii2BmGXzxhkfGK4I6",
+  "cos_hmac_keys": {
+    "access_key_id": "9233d8913dc74caf917f3ac63dba37a5",
+    "secret_access_key": "f577e3fe5cc0c8ce23ff5a119884d15bad268dcb86fa4f47"
+  },
+  "endpoints": "https://control.cloud-object-storage.cloud.ibm.com/v2/endpoints",
+  "iam_apikey_description": "Auto-generated for key 9233d891-3dc7-4caf-917f-3ac63dba37a5",
+  "iam_apikey_name": "안석준",
+  "iam_role_crn": "crn:v1:bluemix:public:iam::::serviceRole:Writer",
+  "iam_serviceid_crn": "crn:v1:bluemix:public:iam-identity::a/a3275524be154017a8a060877967792f::serviceid:ServiceId-32404641-1d1f-4c5b-8696-ace7607cb7f9",
+  "resource_instance_id": "crn:v1:bluemix:public:cloud-object-storage:global:a/a3275524be154017a8a060877967792f:a0e92169-29ba-4ad4-afaf-d4a79b669372::"
+}
