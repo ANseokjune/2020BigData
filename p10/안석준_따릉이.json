@@ -1,0 +1,345 @@
+{
+  "intents": [
+    {
+      "intent": "purchase",
+      "examples": [
+        {
+          "text": "이용권 구매"
+        },
+        {
+          "text": "이용권"
+        },
+        {
+          "text": "이용권 구매 방법"
+        }
+      ],
+      "description": "이용권 구매"
+    },
+    {
+      "intent": "use",
+      "examples": [
+        {
+          "text": "yes"
+        },
+        {
+          "text": "따릉이 어떻게 이용해?"
+        },
+        {
+          "text": "따릉이 이용방법은?"
+        },
+        {
+          "text": "따릉이 탈래"
+        }
+      ],
+      "description": "이용방법"
+    },
+    {
+      "intent": "return",
+      "examples": [
+        {
+          "text": "이용방법 안내"
+        },
+        {
+          "text": "반납은 어떻게 해?"
+        },
+        {
+          "text": "따릉이 반납"
+        },
+        {
+          "text": "따릉이 반납할께"
+        }
+      ],
+      "description": "반납방법"
+    }
+  ],
+  "entities": [
+    {
+      "entity": "yes_or_no",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "yes",
+          "synonyms": [
+            "네",
+            "좋아요",
+            "ㅇㅇ",
+            "넵"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "no",
+          "synonyms": [
+            "싫어요",
+            "아니요",
+            "ㄴㄴㄴ"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    },
+    {
+      "entity": "member",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "회원",
+          "synonyms": [
+            "회원",
+            "회원가입"
+          ]
+        },
+        {
+          "type": "synonyms",
+          "value": "비회원",
+          "synonyms": [
+            "비회원"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "dialog_nodes": [
+    {
+      "type": "standard",
+      "title": "비회원 이용하기",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "비회원으로 이용하려면 이용권을 구매하세요."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_4_1591147240241",
+      "conditions": "@member:비회원 || #use",
+      "dialog_node": "node_6_1591148116659"
+    },
+    {
+      "type": "standard",
+      "title": "이용권구매",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "이용권을 구매하려면 홈페이지에 접속하세요"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1591147389253",
+      "conditions": "#purchase",
+      "dialog_node": "node_2_1591148394614"
+    },
+    {
+      "type": "standard",
+      "title": "비회원 이용하기",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "비회원으로 이용하려면 이용권을 구매하세요."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "이용권 구매방법이 궁금하세요?",
+            "options": [
+              {
+                "label": "네",
+                "value": {
+                  "input": {
+                    "text": "이용권 구매"
+                  }
+                }
+              },
+              {
+                "label": "아니요",
+                "value": {
+                  "input": {
+                    "text": "no"
+                  }
+                }
+              }
+            ],
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1591147074483",
+      "conditions": "@member:비회원 || @yes_or_no:yes",
+      "dialog_node": "node_6_1591147389253",
+      "previous_sibling": "node_4_1591147240241"
+    },
+    {
+      "type": "standard",
+      "title": "회원으로 이용하기",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "회원가입 > 이용권구매> 자전거 반납순으로 이용 가능"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "비회원 이용방법도 궁금하세요?",
+            "options": [
+              {
+                "label": "네",
+                "value": {
+                  "input": {
+                    "text": "비회원"
+                  }
+                }
+              },
+              {
+                "label": "아니요",
+                "value": {
+                  "input": {
+                    "text": "넵"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "parent": "node_1_1591147074483",
+      "conditions": "@member:회원 || @yes_or_no:yes",
+      "dialog_node": "node_4_1591147240241"
+    },
+    {
+      "type": "standard",
+      "title": "이용방법 안내",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "따릉이 이용 방법이 궁금한가요? 회원과 비회원으로 이용할 수 있어요."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          },
+          {
+            "title": "회원or비회원 이용하기",
+            "options": [
+              {
+                "label": "회원?",
+                "value": {
+                  "input": {
+                    "text": "회원"
+                  }
+                }
+              },
+              {
+                "label": "비회원?",
+                "value": {
+                  "input": {
+                    "text": "비회원"
+                  }
+                }
+              }
+            ],
+            "description": "",
+            "response_type": "option"
+          }
+        ]
+      },
+      "conditions": "#use",
+      "dialog_node": "node_1_1591147074483",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "반납방법 안내",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "따릉이 반납은 지정된 위치에 반납하세요"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "#return",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_1_1591147074483",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "따릉이에요 무엇을 도와드릴까요?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}
